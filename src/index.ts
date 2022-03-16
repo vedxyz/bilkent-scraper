@@ -1,134 +1,115 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-multi-assign */
 import { JSDOM } from "jsdom";
 import fetch from "node-fetch";
 import fs from "fs/promises";
+import { CourseOfferingSectionData, Department, DepartmentOfferingsData, SemesterType } from "./interface.js";
 
-const getOfferings = async (courseCode, semester) => {
+export const getOfferings = async (department: Department, year: number, semesterType: SemesterType): Promise<DepartmentOfferingsData> => {
+  const semester = `${year}${semesterType}`;
   const page = await fetch(
-    `https://stars.bilkent.edu.tr/homepage/ajax/plainOfferings.php?COURSE_CODE=${courseCode}&SEMESTER=${semester}`
+    `https://stars.bilkent.edu.tr/homepage/ajax/plainOfferings.php?COURSE_CODE=${department}&SEMESTER=${semester}`
   );
   const rows = new JSDOM(await page.text()).window.document.body.querySelectorAll("#poTable > tbody tr");
 
-  const offerings = [];
+  const offeringsObj: DepartmentOfferingsData = { dateFetched: new Date(), offerings: [] };
 
   rows.forEach((row) => {
-    const [courseCode, section] = row.querySelector("td:nth-child(1)").textContent.split("-");
-    const courseName = row.querySelector("td:nth-child(2)").textContent;
-    const instructor =
-      row.querySelector("td:nth-child(3) > span:first-child > div:first-child")?.textContent ||
-      row.querySelector("td:nth-child(3)").textContent;
+    const columns = [
+      row.querySelector("td:nth-child(1)"),
+      row.querySelector("td:nth-child(2)"),
+      row.querySelector("td:nth-child(3)"),
+    ] as Element[];
+    const column8 = row.querySelector("td:nth-child(8)") as Element;
+    const column15 = row.querySelector("td:nth-child(15)") as Element;
+    [...columns, column8].forEach((column) => {
+      if (column === null) throw new Error("Element query returned null");
+    });
 
-    const quota = {};
-    const quotaString = row.querySelector("td:nth-child(8)").textContent;
+    const [courseCode, section] = columns[0].textContent!.split("-");
+    const courseName = columns[1].textContent;
+    const instructor =
+      row.querySelector("td:nth-child(3) > span:first-child > div:first-child")?.textContent || columns[2].textContent;
+
+    const quotaString = column8.textContent!;
+    let quotaIndifferent: boolean;
+    let quotaTotal: number;
+    let quotaMandatory: number;
+    let quotaElective: number;
 
     if (quotaString.indexOf("or") !== -1) {
-      quota.indifferent = true;
-      quota.total = quotaString.match(/(\d+) Mand/)[1];
+      quotaIndifferent = true;
+      quotaTotal = quotaMandatory = quotaElective = parseInt(quotaString.match(/(\d+) Mand/)![1], 10);
     } else if (quotaString.indexOf("Unlimited") !== -1) {
-      quota.indifferent = true;
-      quota.total = Infinity;
+      quotaIndifferent = true;
+      quotaTotal = quotaMandatory = quotaElective = Infinity;
     } else {
-      const [, mandatory, elective] = quotaString.match(/(\d+) Mand\. (\d+) Elect\./);
-      quota.indifferent = false;
-      quota.mandatory = mandatory;
-      quota.elective = elective;
+      const [, mandatory, elective] = quotaString.match(/(\d+) Mand\. (\d+) Elect\./) as RegExpMatchArray;
+      quotaIndifferent = false;
+      quotaMandatory = parseInt(mandatory, 10);
+      quotaElective = parseInt(elective, 10);
+      quotaTotal = quotaMandatory + quotaElective;
     }
+    const quota: CourseOfferingSectionData["quota"] = {
+      indifferent: quotaIndifferent,
+      total: quotaTotal,
+      mandatory: quotaMandatory,
+      elective: quotaElective,
+    };
 
     const schedule =
-      row.querySelector("td:nth-child(15)").textContent === ""
-        ? "N/A"
-        : row
-            .querySelector("td:nth-child(15)")
-            .textContent.split("\n")
+      column15.textContent === ""
+        ? []
+        : column15
+            .textContent!.split("\n")
             .slice(0, -1)
             .map((date) => {
-              const [day, timeframe, place] = date.trim().split(" ");
+              const [day, timeframe, location] = date.trim().split(" ");
               const [start, end] = timeframe.split("-");
               return {
-                day,
+                day: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(day),
                 time: {
                   start,
                   end,
                 },
-                place,
+                location: location?.slice(1, -1),
               };
             });
 
-    let course = offerings.find((el) => el.courseCode === courseCode);
+    let course = offeringsObj.offerings.find((offering) => offering.code === courseCode);
 
     if (course === undefined) {
       course = {
-        courseCode,
-        courseName,
+        code: courseCode,
+        name: courseName ?? "",
         sections: [],
       };
-      offerings.push(course);
+      offeringsObj.offerings.push(course);
     }
 
     course.sections.push({
       section,
-      instructor,
+      instructor: instructor ?? "",
       quota,
       schedule,
     });
   });
 
-  return offerings;
+  return offeringsObj;
 };
 
-const writeOfferingsToFile = async (offerings, filename) => {
+export const saveOfferingsToJSON = async (
+  department: Department,
+  year: number,
+  semesterType: SemesterType,
+  prettify: boolean
+): Promise<void> => {
   await fs.writeFile(
-    filename,
-    offerings
-      .map(
-        (course) =>
-          `${course.courseCode} - ${course.courseName}:\n ${course.sections
-            .map(
-              (section) =>
-                `\t${section.section} | ${
-                  section.quota.indifferent
-                    ? `${section.quota.total} Total`
-                    : `${section.quota.mandatory} Mand., ${section.quota.elective} Elect.`
-                } | ${section.instructor};\n ${
-                  section.schedule === "N/A"
-                    ? "\t\tSchedule N/A"
-                    : section.schedule
-                        .map((point) => `\t\t${point.day}, ${point.time.start}-${point.time.end} @ ${point.place}`)
-                        .join("\n")
-                }`
-            )
-            .join("\n")}`
-      )
-      .join("\n\n"),
+    `${department}_${year}_${["fall", "spring", "summer"][semesterType - 1]}.json`,
+    JSON.stringify(await getOfferings(department, year, semesterType), null, prettify ? 2 : 0),
     { encoding: "utf-8" }
   );
 };
 
-const saveOfferingsToFile = async (courseCode, semester) => {
-  await writeOfferingsToFile(
-    await getOfferings(courseCode, semester),
-    `${courseCode} - ${semester.substring(0, 4)} - ${["Fall", "Spring", "Summer"][semester.charAt(4) - 1]}.txt`
-  );
-};
-
-const saveOfferingsToJSON = async (courseCode, semester, prettify: boolean) => {
-  await fs.writeFile(
-    `${courseCode}_${semester.substring(0, 4)}_${["fall", "spring", "summer"][semester.charAt(4) - 1]}.json`,
-    JSON.stringify(await getOfferings(courseCode, semester), null, prettify ? 2 : 0),
-    { encoding: "utf-8" }
-  );
-};
-
-// await saveOfferingsToJSON("CS", "20211", true);
-// await saveOfferingsToJSON("HIST", "20211", true);
-// await saveOfferingsToJSON("HUM", "20211", true);
-// await saveOfferingsToJSON("PHYS", "20211", true);
-// await saveOfferingsToJSON("CHEM", "20211", true);
-// await saveOfferingsToJSON("ECON", "20211", true);
-// await saveOfferingsToJSON("EEE", "20211", true);
-// await saveOfferingsToJSON("ENG", "20211", true);
-// await saveOfferingsToJSON("IE", "20211", true);
-// await saveOfferingsToJSON("LAW", "20211", true);
-// await saveOfferingsToJSON("MATH", "20211", true);
-// await saveOfferingsToJSON("MBG", "20211", true);
-// await saveOfferingsToJSON("PSYC", "20211", true);
-// await saveOfferingsToJSON("TURK", "20211", true);
+// Object.keys(Department).forEach(dep => saveOfferingsToJSON(dep as Department, 2021, SemesterType.Spring, true));
