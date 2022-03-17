@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-multi-assign */
 import { JSDOM } from "jsdom";
 import fetch from "node-fetch";
 import fs from "fs/promises";
-import { CourseOfferingSectionData, Department, DepartmentOfferingsData, SemesterType } from "./interface.js";
+import { CourseOfferingSectionData, Department, DepartmentOfferingsData, SemesterType } from "./interface";
 
 export const getOfferings = async (department: Department, year: number, semesterType: SemesterType): Promise<DepartmentOfferingsData> => {
   const semester = `${year}${semesterType}`;

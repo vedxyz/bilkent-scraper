@@ -4,7 +4,10 @@
   "description": "Scrape stuff off of Bilkent University's public APIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": {"type": "git", "url": "https://github.com/vedattt/bilkent-scraper"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vedattt/bilkent-scraper"
+  },
   "scripts": {
     "build": "rimraf ./dist && npx tsc",
     "start": "node ./dist/index.js",
@@ -27,7 +30,6 @@
   },
   "dependencies": {
     "jsdom": "^19.0.0",
-    "node-fetch": "^3.2.3"
-  },
-  "type": "module"
+    "node-fetch": "^2.6.7"
+  }
 }
