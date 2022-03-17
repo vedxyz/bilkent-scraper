@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rimraf ./dist && npx tsc",
     "start": "node ./dist/index.js",
-    "test": "rimraf ./dist && npx tsc && mkdir testoutput && node ./dist/test.js",
+    "test": "rimraf ./dist && npx tsc && mkdir -p testoutput && node ./dist/test.js",
     "prettier": "npx prettier --write ./src"
   },
   "author": "Ved",
@@ -30,7 +30,9 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
+    "dayjs": "^1.11.0",
     "jsdom": "^19.0.0",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "tmp-promise": "^3.0.3"
   }
 }
