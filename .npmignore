@@ -1,0 +1,7 @@
+dist/test.*
+src
+testoutput
+.editorconfig
+.eslintrc.json
+.prettierrc.json
+tsconfig.json
