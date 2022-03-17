@@ -121,3 +121,7 @@ export enum Department {
   TRIN = "TRIN",
   TURK = "TURK",
 }
+
+export interface OfferingsQuery {
+  department: Department, year: number, semesterType: SemesterType
+}

@@ -6,6 +6,7 @@ import {
   CourseOfferingSectionData,
   DepartmentOfferingsData,
   SemesterType,
+  OfferingsQuery,
 } from "./offerings/interface";
 
 export {
@@ -17,4 +18,5 @@ export {
   CourseOfferingSectionData,
   DepartmentOfferingsData,
   SemesterType,
+  OfferingsQuery,
 };
