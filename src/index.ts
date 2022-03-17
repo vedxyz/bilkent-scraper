@@ -1,5 +1,3 @@
-import { getMealList } from "./cafeteria";
-import { MealList, Meal, MealDay, MealName } from "./cafeteria/interface";
 import { getOfferings, saveOfferingsToJSON } from "./offerings";
 import {
   Department,
@@ -10,6 +8,10 @@ import {
   SemesterType,
   OfferingsQuery,
 } from "./offerings/interface";
+import { getMealList } from "./cafeteria";
+import { MealList, Meal, MealDay, MealName } from "./cafeteria/interface";
+import { get2FACode } from "./srs2fa";
+import { SRS2FACode } from "./srs2fa/interface";
 
 export {
   // Offerings
@@ -28,5 +30,7 @@ export {
   Meal,
   MealDay,
   MealName,
-  // SRS 2FA
+  // SRS 2FA,
+  get2FACode,
+  SRS2FACode,
 };
