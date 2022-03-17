@@ -22,7 +22,7 @@ export const getOfferings = async (department: Department, year: number, semeste
     ] as Element[];
     const column8 = row.querySelector("td:nth-child(8)") as Element;
     const column15 = row.querySelector("td:nth-child(15)") as Element;
-    [...columns, column8].forEach((column) => {
+    [...columns, column8, column15].forEach((column) => {
       if (column === null) throw new Error("Element query returned null");
     });
 
