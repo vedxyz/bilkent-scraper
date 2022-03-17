@@ -109,8 +109,7 @@ const cacheMealList = async (writeJson = false, filePath = ""): Promise<void> =>
   };
 
   await parseMealPDF(await response.buffer(), mealList);
-  if (writeJson)
-    await fs.promises.writeFile(filePath, JSON.stringify(mealList, null, 2));
+  if (writeJson) await fs.promises.writeFile(filePath, JSON.stringify(mealList, null, 2));
 
   mealListCache = mealList;
 };

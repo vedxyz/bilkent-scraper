@@ -123,5 +123,7 @@ export enum Department {
 }
 
 export interface OfferingsQuery {
-  department: Department, year: number, semesterType: SemesterType
+  department: Department;
+  year: number;
+  semesterType: SemesterType;
 }
