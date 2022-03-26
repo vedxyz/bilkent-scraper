@@ -40,6 +40,9 @@ const parseMealPDF = async (buffer: Buffer, mealList: MealList): Promise<void> =
   });
   if (parse.error) return;
 
+  // Fix long dish name lines that overflow to the next line
+  parse.raw = parse.raw.replace(/(^.+ \/ .+)\n(^[^/]+$)(?!\n.+ \/$)/gm, "$1 $2");
+
   const plateLines = parse.raw.split("\n").slice(0, 70);
   const calorieLines = parse.default
     .split("\n")
