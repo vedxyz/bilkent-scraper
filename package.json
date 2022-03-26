@@ -1,6 +1,6 @@
 {
   "name": "bilkent-scraper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scrape stuff off of Bilkent University's public APIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rimraf ./dist && npx tsc",
     "start": "node ./dist/index.js",
-    "test": "rimraf ./dist && npx tsc && mkdir -p testoutput && node ./dist/test.js",
+    "test": "rimraf ./dist && npx tsc && mkdir -p testoutput && node --enable-source-maps ./dist/test.js",
     "prettier": "npx prettier --write ./src"
   },
   "author": "Ved",
