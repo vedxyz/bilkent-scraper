@@ -10,8 +10,8 @@ import {
 } from "./offerings/interface";
 import { getMealList } from "./cafeteria";
 import { MealList, Meal, MealDay, MealName } from "./cafeteria/interface";
-import { get2FACode } from "./srs2fa";
-import { SRS2FACode } from "./srs2fa/interface";
+import { get2FACode } from "./srs";
+import { SRS2FACode } from "./srs/interface";
 
 export {
   // Offerings
