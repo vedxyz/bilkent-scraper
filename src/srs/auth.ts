@@ -181,8 +181,7 @@ export const requestSRS = async (url: string, cookie: string): Promise<Response>
   });
 
   const content = await response.clone().text();
-  if (content.startsWith("You are logged out from SRS"))
-    throw Error("Unauthenticated request! Cookie may be invalid.");
+  if (content.startsWith("You are logged out from SRS")) throw Error("Unauthenticated request! Cookie may be invalid.");
 
   return response;
 };
