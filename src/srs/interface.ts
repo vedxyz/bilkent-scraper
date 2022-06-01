@@ -32,3 +32,22 @@ export interface SRSSemesterCourses {
   }[];
 }
 
+export type SRSGrades = "A" | "A-" | "B+" | "B" | "B-" | "C+" | "C" | "C-" | "D+" | "D" | "F";
+
+export type CGPACalculationRequestData = { course: SRSCourse; grade: SRSGrades }[];
+
+export interface CGPACalculation {
+  gpa: number;
+  cgpa: number;
+  standing: string;
+  credits: {
+    semesterTotal: number;
+    previousTotal: number;
+    grandTotal: number;
+  };
+  points: {
+    semesterTotal: number;
+    previousTotal: number;
+    grandTotal: number;
+  };
+}
