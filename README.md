@@ -6,14 +6,14 @@ Makeshift API for Bilkent University.
 
 This is of course not an exhaustive list, but a helpful one.
 
-- `https://stars.bilkent.edu.tr/srs/ajax/home.php`
+- `https://stars.bilkent.edu.tr/srs/ajax/home.php` (courses endpoint could replace this)
 - `https://stars.bilkent.edu.tr/srs/ajax/userInfo.php`
 - `https://stars.bilkent.edu.tr/srs/ajax/curriculum.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/courses.php`
+- `https://stars.bilkent.edu.tr/srs/ajax/courses.php` (same as below, but for current semester)
+- `https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=20211`
 - `https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`
 - `https://stars.bilkent.edu.tr/srs/ajax/stats/letter-grade.php`
 - `https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=20211`
 - `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php` (current semester)
 - `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php` (current semester)
 - `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php?first=y&course=CS 223-5&semester=20211` (`course` can be omitted)
