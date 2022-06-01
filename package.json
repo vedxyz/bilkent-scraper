@@ -1,17 +1,13 @@
 {
-  "name": "bilkent-scraper",
-  "version": "1.0.1",
-  "description": "Scrape stuff off of Bilkent University's public APIs",
-  "main": "dist/index.js",
+  "name": "@vedattt/bilkent-scraper",
+  "version": "2.0.0-alpha",
+  "description": "Providing a makeshift Bilkent University API by scraping university services",
+  "main": "./dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vedattt/bilkent-scraper"
-  },
+  "repository": "https://github.com/vedattt/bilkent-scraper",
   "scripts": {
     "build": "rimraf ./dist && npx tsc",
-    "start": "node ./dist/index.js",
-    "test": "rimraf ./dist && npx tsc && mkdir -p testoutput && node --enable-source-maps ./dist/test.js",
+    "test": "npm run build && mkdir -p testoutput && node --enable-source-maps ./dist/test.js",
     "prettier": "npx prettier --write ./src"
   },
   "author": "Ved",
@@ -20,21 +16,24 @@
     "@types/jsdom": "^16.2.14",
     "@types/node-fetch": "^2.6.1",
     "@types/prompt-sync": "^4.1.1",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "prettier": "2.3.2",
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.6.2",
     "prompt-sync": "^4.2.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.2"
+    "typescript": "^4.7.2"
   },
   "dependencies": {
-    "dayjs": "^1.11.0",
+    "dayjs": "^1.11.2",
     "jsdom": "^19.0.0",
     "node-fetch": "^2.6.7",
     "tmp-promise": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=14.16"
   }
 }
