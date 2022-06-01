@@ -6,6 +6,8 @@ import fs from "fs/promises";
 import path from "path";
 import { CourseOfferingSectionData, DepartmentOfferingsData, OfferingsQuery } from "./interface";
 
+export * from "./interface";
+
 const parseQuota = (quotaString: string): CourseOfferingSectionData["quota"] => {
   let quotaIndifferent: boolean;
   let quotaTotal: number;

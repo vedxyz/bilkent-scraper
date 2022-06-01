@@ -7,6 +7,8 @@ import dayjs, { Dayjs } from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import { MealList, MealName, MealDay } from "./interface";
 
+export * from "./interface";
+
 // dayjs.Ls.en.weekStart = 1; // May not be needed with IsoWeek plugin
 dayjs.extend(isoWeek);
 const execAsync = promisify(exec);

@@ -1,4 +1,4 @@
-import { SemesterType } from "../offerings/interface";
+import { SemesterType } from "../offerings";
 
 export interface SRS2FACode {
   code: string;

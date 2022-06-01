@@ -1,10 +1,9 @@
 import path from "path";
 import fs from "fs";
 import promptSync from "prompt-sync";
-import { saveOfferingsToJSON } from "./offerings";
-import { Department, SemesterType } from "./offerings/interface";
+import { Department, saveOfferingsToJSON, SemesterType } from "./offerings";
 import { getMealList } from "./cafeteria";
-import { get2FACode, initializeLogin, verifyEmail } from "./srs";
+import { CGPACalculationRequestData, get2FACode, initializeLogin, SRSSession, verifyEmail } from "./srs";
 
 const args = process.argv.slice(2);
 const testDir = path.join(__dirname, "..", "testoutput");
