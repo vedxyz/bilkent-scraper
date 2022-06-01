@@ -3,11 +3,24 @@ import fs from "fs";
 import promptSync from "prompt-sync";
 import { Department, saveOfferingsToJSON, SemesterType } from "./offerings";
 import { getMealList } from "./cafeteria";
-import { CGPACalculationRequestData, get2FACode, initializeLogin, SRSSession, verifyEmail } from "./srs";
+import { get2FACode, SRSSession, SRSSessionBuilder } from "./srs";
 
 const args = process.argv.slice(2);
 const testDir = path.join(__dirname, "..", "testoutput");
 const prompt = promptSync({ sigint: true });
+
+const getCredentialsFromArgs = (
+  usernameArgName: string,
+  passwordArgName: string
+): [username: string, password: string] => {
+  const credentials = [usernameArgName, passwordArgName].map((argName) => {
+    const arg = `--${argName}=`;
+    return args.find((i) => i.startsWith(arg))?.substring(arg.length) || "";
+  });
+  if (credentials.some((str) => str.length === 0))
+    throw Error(`Login credentials aren't provided! Missing '${usernameArgName}' or '${passwordArgName}'.`);
+  return credentials as ReturnType<typeof getCredentialsFromArgs>;
+};
 
 const testOfferings = () => {
   Object.keys(Department).forEach((dep) =>
@@ -20,31 +33,44 @@ const testCafeteria = async () => {
 };
 
 const test2FA = async () => {
-  const email = args.find((i) => i.startsWith("--email="))?.substring("--email=".length) || "";
-  const password = args.find((i) => i.startsWith("--password="))?.substring("--password=".length) || "";
+  const [email, password] = getCredentialsFromArgs("email", "password");
 
   if (email.length > 10 && password.length > 5) {
-    const { code, ref } = await get2FACode(email, password, "STARS Auth");
+    const { code, ref } = await get2FACode(email, password);
     console.log(`Code: ${code}, Ref: ${ref}`);
   }
 };
 
-const testLogin = async () => {
-  const id = args.find((i) => i.startsWith("--id="))?.substring("--id=".length) || "";
-  const password = args.find((i) => i.startsWith("--password="))?.substring("--password=".length) || "";
-  if (id.length < 8 || password.length < 6) throw Error("Login credentials aren't provided!");
+const testRandomSRSFunction = async (session: SRSSession) => {
+  const semester = await session.getSemester();
+  console.log(JSON.stringify(semester, undefined, 2));
+};
 
-  const loginRequest = await initializeLogin(id, password);
-  console.log(loginRequest);
+const testSessionBuilderManual = async () => {
+  const [id, password] = getCredentialsFromArgs("id", "password");
 
-  const verificationCode = prompt("Verification Code: ");
-  const sessid = await verifyEmail(loginRequest.cookie, verificationCode);
-  console.log(sessid);
+  const { reference, verify } = await SRSSessionBuilder.withManualVerification(id, password);
+  const verificationCode = prompt(`Verification Code (${reference}): `);
+  const session = await verify(verificationCode);
+  console.log(session.cookie);
+
+  await testRandomSRSFunction(session);
+};
+
+const testSessionBuilderAutomated = async () => {
+  const [id, password] = getCredentialsFromArgs("id", "password");
+  const [email, emailPassword] = getCredentialsFromArgs("email", "emailpw");
+
+  const session = await SRSSessionBuilder.withAutomatedVerification(id, password, email, emailPassword);
+  console.log(session.cookie);
+
+  await testRandomSRSFunction(session);
 };
 
 (async () => {
   if (args.includes("--offerings")) testOfferings();
   else if (args.includes("--cafeteria")) testCafeteria();
   else if (args.includes("--2fa")) test2FA();
-  else if (args.includes("--login")) testLogin();
+  else if (args.includes("--manual")) testSessionBuilderManual();
+  else if (args.includes("--automated")) testSessionBuilderAutomated();
 })();
