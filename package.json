@@ -1,5 +1,5 @@
 {
-  "name": "@vedattt/bilkent-scraper",
+  "name": "bilkent-scraper",
   "version": "2.0.0-alpha",
   "description": "Providing a makeshift Bilkent University API by scraping university services",
   "main": "./dist/index.js",
