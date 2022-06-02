@@ -72,3 +72,52 @@ export interface SRSExam {
   timeBlock: string;
   classrooms: string[];
 }
+
+export enum SRSTimeSlot {
+  H8 = "08:30 - 09:20",
+  H9 = "09:30 - 10:20",
+  H10 = "10:30 - 11:20",
+  H11 = "11:30 - 12:20",
+  H12 = "12:30 - 13:20",
+  H13 = "13:30 - 14:20",
+  H14 = "14:30 - 15:20",
+  H15 = "15:30 - 16:20",
+  H16 = "16:30 - 17:20",
+  H17 = "17:30 - 18:20",
+  H18 = "18:30 - 19:20",
+  H19 = "19:30 - 20:20",
+  H20 = "20:30 - 21:20",
+  H21 = "21:30 - 22:20",
+}
+
+export interface SRSDailyScheduleItem<TimeSlotKey extends keyof typeof SRSTimeSlot = keyof typeof SRSTimeSlot> {
+  timeSlot: typeof SRSTimeSlot[TimeSlotKey];
+  details: string[] | null;
+}
+
+export type SRSDailySchedule = [
+  h8: SRSDailyScheduleItem<"H8">,
+  h9: SRSDailyScheduleItem<"H9">,
+  h10: SRSDailyScheduleItem<"H10">,
+  h11: SRSDailyScheduleItem<"H11">,
+  h12: SRSDailyScheduleItem<"H12">,
+  h13: SRSDailyScheduleItem<"H13">,
+  h14: SRSDailyScheduleItem<"H14">,
+  h15: SRSDailyScheduleItem<"H15">,
+  h16: SRSDailyScheduleItem<"H16">,
+  h17: SRSDailyScheduleItem<"H17">,
+  h18: SRSDailyScheduleItem<"H18">,
+  h19: SRSDailyScheduleItem<"H19">,
+  h20: SRSDailyScheduleItem<"H20">,
+  h21: SRSDailyScheduleItem<"H21">
+];
+
+export type SRSWeeklySchedule = [
+  monday: SRSDailySchedule,
+  tuesday: SRSDailySchedule,
+  wednesday: SRSDailySchedule,
+  thursday: SRSDailySchedule,
+  friday: SRSDailySchedule,
+  saturday: SRSDailySchedule,
+  sunday: SRSDailySchedule
+];
