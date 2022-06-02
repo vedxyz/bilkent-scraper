@@ -164,3 +164,10 @@ export interface SRSInfoCard {
     mobilePhone: string;
   };
 }
+
+export interface AcademicCalendarItem {
+  date: string;
+  event: string;
+  type?: "studentaffairs" | "vacation" | "englishprep"
+}
+export type AcademicCalendar = AcademicCalendarItem[];
