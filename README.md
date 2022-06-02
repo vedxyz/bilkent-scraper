@@ -34,7 +34,7 @@ courses%5BCS_202_1%5D=C&courses%5BCS_224_1%5D=A&courses%5BCS_319_1%5D=B%2B&cours
 
 Some endpoints from above have been skipped to avoid redundancy.
 
-- [ ] Exam Schedule (`https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`)
+- [x] Exam Schedule (`https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`)
 - [ ] Weekly Schedule (`https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly`)
 - [ ] Letter Grade Statistics (`https://stars.bilkent.edu.tr/srs/ajax/stats/letter-grade.php`)
 - [ ] Information Card (`https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`)

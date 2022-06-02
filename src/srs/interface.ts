@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { SemesterType } from "../offerings";
 
 export interface SRS2FACode {
@@ -50,4 +51,12 @@ export interface CGPACalculation {
     previousTotal: number;
     grandTotal: number;
   };
+}
+
+export interface SRSExam {
+  courseName: string;
+  examType: string;
+  startingTime: Dayjs;
+  timeBlock: string;
+  classrooms: string[];
 }
