@@ -173,15 +173,15 @@ export const verifyEmail = async (initCookie: string, code: string): Promise<str
   return newCookie;
 };
 
-export const requestSRS = async (url: string, cookie: string): Promise<Response> => {
+export const requestSRS = async (url: string, cookie: string): Promise<string> => {
   const response = await fetch(url, {
     headers: {
       Cookie: cookie,
     },
   });
 
-  const content = await response.clone().text();
+  const content = await response.text();
   if (content.startsWith("You are logged out from SRS")) throw Error("Unauthenticated request! Cookie may be invalid.");
 
-  return response;
+  return content;
 };

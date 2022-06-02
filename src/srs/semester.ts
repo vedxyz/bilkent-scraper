@@ -44,14 +44,14 @@ const parseSemester = (dom: JSDOM): SRSSemesterCourses => {
 };
 
 export const getCurrentSemester = async (cookie: string): Promise<SRSSemesterCourses> => {
-  const response = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/courses.php", cookie);
-  return parseSemester(new JSDOM(await response.text()));
+  const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/courses.php", cookie);
+  return parseSemester(new JSDOM(content));
 };
 
 export const getSemester = async (cookie: string, semester: SRSSemester): Promise<SRSSemesterCourses> => {
-  const response = await requestSRS(
+  const content = await requestSRS(
     `https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=${semester.year}${semester.season}`,
     cookie
   );
-  return parseSemester(new JSDOM(await response.text()));
+  return parseSemester(new JSDOM(content));
 };
