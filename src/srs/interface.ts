@@ -33,7 +33,19 @@ export interface SRSSemesterCourses {
   }[];
 }
 
-export type SRSLetterGrade = "A" | "A-" | "B+" | "B" | "B-" | "C+" | "C" | "C-" | "D+" | "D" | "F";
+export enum SRSLetterGrade {
+  "A" = "A",
+  "A-" = "A-",
+  "B+" = "B+",
+  "B" = "B",
+  "B-" = "B-",
+  "C+" = "C+",
+  "C" = "C",
+  "C-" = "C-",
+  "D+" = "D+",
+  "D" = "D",
+  "F" = "F",
+}
 
 export type CGPACalculationRequestData = { course: SRSCourse; grade: SRSLetterGrade }[];
 
