@@ -33,9 +33,9 @@ export interface SRSSemesterCourses {
   }[];
 }
 
-export type SRSGrades = "A" | "A-" | "B+" | "B" | "B-" | "C+" | "C" | "C-" | "D+" | "D" | "F";
+export type SRSLetterGrade = "A" | "A-" | "B+" | "B" | "B-" | "C+" | "C" | "C-" | "D+" | "D" | "F";
 
-export type CGPACalculationRequestData = { course: SRSCourse; grade: SRSGrades }[];
+export type CGPACalculationRequestData = { course: SRSCourse; grade: SRSLetterGrade }[];
 
 export interface CGPACalculation {
   gpa: number;
