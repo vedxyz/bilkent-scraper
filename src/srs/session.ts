@@ -1,6 +1,7 @@
 import { get2FACode, initializeLogin, verifyEmail } from "./auth";
 import { calculateGPA } from "./cgpacalculator";
 import { getExams } from "./exam";
+import { CGPACalculationRequestData, SRSSemester } from "./interface";
 import { getWeeklySchedule } from "./schedule";
 import { getCurrentSemester, getSemester } from "./semester";
 
@@ -11,12 +12,12 @@ class SRSSessionInternal {
     this.cookie = cookie;
   }
 
-  async getSemester(semester?: SRSSemester): Promise<SRSSemesterCourses> {
+  async getSemester(semester?: SRSSemester) {
     if (semester) return getSemester(this.cookie, semester);
     return getCurrentSemester(this.cookie);
   }
 
-  async calculateGPA(courses: { course: SRSCourse; grade: SRSLetterGrade }[]): Promise<CGPACalculation> {
+  async calculateGPA(courses: CGPACalculationRequestData) {
     return calculateGPA(this.cookie, courses);
   }
 
