@@ -121,3 +121,46 @@ export type SRSWeeklySchedule = [
   saturday: SRSDailySchedule,
   sunday: SRSDailySchedule
 ];
+
+export interface SRSInfoCard {
+  student: {
+    id: string;
+    nationalId: string;
+    fullName: string;
+    status: string;
+    faculty: string;
+    department: string;
+    picture?: string;
+  };
+  advisor: {
+    fullName: string;
+    email: string;
+  };
+  academic: {
+    standing: string;
+    gpa: string;
+    cgpa: string;
+    registrationSemester: string;
+    curriculumSemester: string;
+    class: string;
+    nominalCreditLoad: string;
+    courseLimits: {
+      lower: string;
+      upper: string;
+    };
+    ranking: {
+      cohort: string;
+      agpa: string;
+      details: string;
+    };
+  };
+  scholarship: {
+    byPlacement: string;
+    merit: string;
+  };
+  contact: {
+    contactEmail: string;
+    bilkentEmail: string;
+    mobilePhone: string;
+  };
+}

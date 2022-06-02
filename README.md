@@ -37,7 +37,7 @@ Some endpoints from above have been skipped to avoid redundancy.
 - [x] Exam Schedule (`https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`)
 - [x] Weekly Schedule (`https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly`)
 - [x] Letter Grade Statistics (`https://stars.bilkent.edu.tr/srs/ajax/stats/letter-grade-bar.php?params=20212_CS_202`)
-- [ ] Information Card (`https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`)
+- [x] Information Card (`https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`)
 - [ ] Current Semester Grades (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php`)
 - [ ] Current Semester Attendances (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php`)
 - [ ] Specific Grades (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php?first=y&course=CS 223-5&semester=20211`)

@@ -5,6 +5,7 @@ import { CGPACalculationRequestData, SRSCourse, SRSSemester } from "./interface"
 import { getLetterGradeStatistics } from "./lettergrade";
 import { getWeeklySchedule } from "./schedule";
 import { getCurrentSemester, getSemester } from "./semester";
+import { getInfoCard } from "./infocard";
 
 class SRSSessionInternal {
   readonly cookie: string;
@@ -32,6 +33,10 @@ class SRSSessionInternal {
 
   async getLetterGradeStatistics(semester: SRSSemester, course: Omit<SRSCourse, "section">) {
     return getLetterGradeStatistics(this.cookie, semester, course);
+  }
+
+  async getInfoCard() {
+    return getInfoCard(this.cookie);
   }
 }
 
