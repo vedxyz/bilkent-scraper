@@ -1,7 +1,8 @@
 import { get2FACode, initializeLogin, verifyEmail } from "./auth";
 import { calculateGPA } from "./cgpacalculator";
 import { getExams } from "./exam";
-import { CGPACalculationRequestData, SRSSemester } from "./interface";
+import { CGPACalculationRequestData, SRSCourse, SRSSemester } from "./interface";
+import { getLetterGradeStatistics } from "./lettergrade";
 import { getWeeklySchedule } from "./schedule";
 import { getCurrentSemester, getSemester } from "./semester";
 
@@ -27,6 +28,10 @@ class SRSSessionInternal {
 
   async getWeeklySchedule() {
     return getWeeklySchedule(this.cookie);
+  }
+
+  async getLetterGradeStatistics(semester: SRSSemester, course: Omit<SRSCourse, "section">) {
+    return getLetterGradeStatistics(this.cookie, semester, course);
   }
 }
 
