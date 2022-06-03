@@ -69,7 +69,7 @@ const session = await verify(verificationCode);
 This is the more practical way to log into SRS **on a secure device**.
 There are security implications to this workflow as the process is no longer "two factor".
 
-The verification code are scraped automatically from your university email address to which codes are sent.
+The verification codes are scraped automatically from your university email address to which codes are sent.
 This requires some prior configuration on the user's part:
 
 - The user must be receiving SRS verification codes through mail rather than SMS.
