@@ -194,9 +194,10 @@ export const requestImageSRS = async (url: string, cookie: string): Promise<stri
   });
 
   const clone = response.clone();
-  const [textContent, arrayBuffer] = await Promise.all([clone.text(), response.arrayBuffer()])
+  const [textContent, arrayBuffer] = await Promise.all([clone.text(), response.arrayBuffer()]);
 
-  if (textContent.startsWith("You are logged out from SRS")) throw Error("Unauthenticated request! Cookie may be invalid.");
+  if (textContent.startsWith("You are logged out from SRS"))
+    throw Error("Unauthenticated request! Cookie may be invalid.");
 
   const bufferString = Buffer.from(arrayBuffer).toString("base64");
   return `data:image/${response.headers.get("Content-Type")};base64,${bufferString}`;

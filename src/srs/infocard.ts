@@ -58,7 +58,7 @@ const parseInfoCard = (dom: JSDOM): SRSInfoCard => {
       bilkentEmail: extractRow(contactTable, 2),
       mobilePhone: extractRow(contactTable, 4),
     },
-  }
+  };
 };
 
 export const getInfoCard = async (cookie: string): Promise<SRSInfoCard> => {
