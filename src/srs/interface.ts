@@ -229,3 +229,9 @@ export interface SRSCurriculumCourseItem {
 }
 export type SRSCurriculumSemester = SRSCurriculumCourseItem[];
 export type SRSCurriculum = SRSCurriculumSemester[];
+
+export interface SRSLetterGradeResult {
+  course: string;
+  grade: SRSLetterGrade;
+}
+export type SRSLetterGradeResults = SRSLetterGradeResult[];
