@@ -6,6 +6,7 @@ import { getLetterGradeStatistics } from "./lettergrade";
 import { getWeeklySchedule } from "./schedule";
 import { getCurrentSemester, getSemester } from "./semester";
 import { getInfoCard } from "./infocard";
+import { getGrades } from "./gradeattend";
 
 class SRSSessionInternal {
   readonly cookie: string;
@@ -37,6 +38,10 @@ class SRSSessionInternal {
 
   async getInfoCard() {
     return getInfoCard(this.cookie);
+  }
+
+  async getGrades(semester?: SRSSemester, course?: SRSCourse) {
+    return getGrades(this.cookie, semester, course);
   }
 }
 

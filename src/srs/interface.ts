@@ -171,3 +171,20 @@ export interface AcademicCalendarItem {
   type?: "studentaffairs" | "vacation" | "englishprep"
 }
 export type AcademicCalendar = AcademicCalendarItem[];
+
+export interface SRSGradeItem {
+  title: string;
+  date: string;
+  grade: string;
+  comment: string;
+}
+
+export interface SRSGradeCategory {
+  type: string;
+  items: SRSGradeItem[];
+}
+
+export interface SRSCourseGrades {
+  title: string;
+  categories: SRSGradeCategory[];
+}
