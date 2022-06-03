@@ -26,7 +26,7 @@ export const getLetterGrades = async (
 
   const { body } = new JSDOM(await response.text()).window.document;
   return [...body.querySelectorAll("#wrapper > fieldset > table > tbody > tr")].map((row) => ({
-    course: row.children.item(0)?.textContent ?? "",
-    grade: row.children.item(1)?.textContent ?? "",
+    course: row.children[0]?.textContent ?? "",
+    grade: row.children[1]?.textContent ?? "",
   }));
 };

@@ -15,8 +15,8 @@ const parseExams = (dom: JSDOM): SRSExam[] =>
     const startingTime = dayjs(`${dateText} ${timeText}`, "DD.MM.YYYY HH:mm");
 
     return {
-      courseName: box.children.item(1)?.querySelector("h2")?.textContent?.trim() ?? "N/A",
-      examType: box.children.item(1)?.querySelector("h3")?.textContent?.trim() ?? "N/A",
+      courseName: box.children[1]?.querySelector("h2")?.textContent?.trim() ?? "N/A",
+      examType: box.children[1]?.querySelector("h3")?.textContent?.trim() ?? "N/A",
       startingTime,
       timeBlock:
         box.querySelector(".examTable > tbody > tr:nth-child(4) > td:nth-child(2)")?.textContent?.trim() ?? "N/A",

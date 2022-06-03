@@ -10,14 +10,14 @@ const parseGrades = (dom: JSDOM): SRSCourseGrades[] =>
       .slice(1)
       .filter((row) => row.childElementCount === 5)
       .forEach((row) => {
-        const categoryType = row.children.item(1)?.textContent?.trim() ?? "Unknown";
+        const categoryType = row.children[1]?.textContent?.trim() ?? "Unknown";
         if (categoryTable[categoryType] === undefined) categoryTable[categoryType] = [];
 
         categoryTable[categoryType].push({
-          title: row.children.item(0)?.textContent?.trim() ?? "N/A",
-          date: row.children.item(2)?.textContent?.trim() ?? "N/A",
-          grade: row.children.item(3)?.textContent?.trim() ?? "N/A",
-          comment: row.children.item(4)?.textContent?.trim() ?? "",
+          title: row.children[0]?.textContent?.trim() ?? "N/A",
+          date: row.children[2]?.textContent?.trim() ?? "N/A",
+          grade: row.children[3]?.textContent?.trim() ?? "N/A",
+          comment: row.children[4]?.textContent?.trim() ?? "",
         });
       });
 

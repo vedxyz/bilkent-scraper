@@ -13,7 +13,7 @@ const parseWeeklySchedule = (dom: JSDOM): SRSWeeklySchedule => {
     weeklySchedule.push(
       rows.map(
         (row): SRSDailyScheduleItem => ({
-          timeSlot: row.children.item(0)?.textContent as SRSTimeSlot,
+          timeSlot: row.children[0]?.textContent as SRSTimeSlot,
           details: row.children.item(i)?.childElementCount
             ? row.children.item(i)?.firstElementChild?.innerHTML.slice(0, -"<br>".length).split("<br>") ?? null
             : null,

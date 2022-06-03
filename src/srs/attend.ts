@@ -7,9 +7,9 @@ const parseAttendance = (dom: JSDOM): SRSCourseAttendance[] =>
   [...dom.window.document.querySelectorAll(".attendDiv")].map((div) => ({
     title: div.firstElementChild?.textContent?.trim().substring("Attendance Records for ".length) ?? "N/A",
     data: [...div.querySelectorAll("tbody > tr")].slice(1).map((row) => ({
-      title: row.children.item(0)?.textContent?.trim() ?? "N/A",
-      date: row.children.item(1)?.textContent?.trim() ?? "N/A",
-      attendance: row.children.item(2)?.textContent?.trim() ?? "N/A",
+      title: row.children[0]?.textContent?.trim() ?? "N/A",
+      date: row.children[1]?.textContent?.trim() ?? "N/A",
+      attendance: row.children[2]?.textContent?.trim() ?? "N/A",
     })),
     ratio: div.querySelector("div > table + div")?.textContent?.trim().substring("Attendance Ratio: ".length) ?? "N/A",
   }));

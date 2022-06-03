@@ -18,9 +18,9 @@ const getEventType = (td: Element | null): AcademicCalendarItem["type"] => {
 
 const parseAcademicCalendar = (dom: JSDOM): AcademicCalendar =>
   [...dom.window.document.querySelectorAll("tbody > tr")].map((row) => ({
-    date: row.children.item(0)?.textContent?.trim().replace("\n", "") ?? "N/A",
-    event: row.children.item(1)?.textContent?.trim() ?? "N/A",
-    type: getEventType(row.children.item(1)),
+    date: row.children[0]?.textContent?.trim().replace("\n", "") ?? "N/A",
+    event: row.children[1]?.textContent?.trim() ?? "N/A",
+    type: getEventType(row.children[1]),
   }));
 
 export const getAcademicCalendar = async (): Promise<AcademicCalendar> => {
