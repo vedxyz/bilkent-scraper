@@ -9,6 +9,7 @@ import { getInfoCard } from "./infocard";
 import { getGrades } from "./grade";
 import { getAttendance } from "./attend";
 import { getCurriculum } from "./curriculum";
+import { getTranscript } from "./transcript";
 
 class SRSSessionInternal {
   readonly cookie: string;
@@ -52,6 +53,10 @@ class SRSSessionInternal {
 
   async getCurriculum() {
     return getCurriculum(this.cookie);
+  }
+
+  async getTranscript() {
+    return getTranscript(this.cookie);
   }
 }
 

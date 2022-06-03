@@ -42,7 +42,7 @@ Some endpoints from above have been skipped to avoid redundancy.
 - [x] Current Semester Attendances (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php`)
 - [x] Specific Grades (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php?course=CS 223-5&semester=20211`)
 - [x] Specific Attendances (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php?course=CS 223-5&semester=20211`)
-- [ ] Transcript (`https://stars.bilkent.edu.tr/srs/ajax/transcript.php`)
+- [x] Transcript (`https://stars.bilkent.edu.tr/srs/ajax/transcript.php`)
 - [x] Curriculum (`https://stars.bilkent.edu.tr/srs/ajax/curriculum.php`)
 - [x] Current Semester Courses (`https://stars.bilkent.edu.tr/srs/ajax/courses.php`)
 - [x] Specific Semester Courses (`https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=20211`)
