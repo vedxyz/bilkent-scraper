@@ -218,7 +218,7 @@ export type SRSTranscript = SRSTranscriptSemester[];
 export interface SRSCurriculumCourseItem {
   course: Omit<SRSCourse, "section"> | "N/A";
   name: string;
-  status: "Succesful" | "Not taken" | "Failed";
+  status: "Successful" | "Not taken" | "Failed";
   grade: SRSLetterGrade | "N/A";
   credits: string | "N/A";
   semester: SRSSemester | null;

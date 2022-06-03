@@ -8,6 +8,7 @@ import { getCurrentSemester, getSemester } from "./semester";
 import { getInfoCard } from "./infocard";
 import { getGrades } from "./grade";
 import { getAttendance } from "./attend";
+import { getCurriculum } from "./curriculum";
 
 class SRSSessionInternal {
   readonly cookie: string;
@@ -47,6 +48,10 @@ class SRSSessionInternal {
 
   async getAttendance(semester?: SRSSemester, course?: SRSCourse) {
     return getAttendance(this.cookie, semester, course);
+  }
+
+  async getCurriculum() {
+    return getCurriculum(this.cookie);
   }
 }
 
