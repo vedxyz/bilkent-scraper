@@ -168,7 +168,7 @@ export interface SRSInfoCard {
 export interface AcademicCalendarItem {
   date: string;
   event: string;
-  type?: "studentaffairs" | "vacation" | "englishprep"
+  type?: "studentaffairs" | "vacation" | "englishprep";
 }
 export type AcademicCalendar = AcademicCalendarItem[];
 
