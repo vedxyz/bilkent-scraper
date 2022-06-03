@@ -188,3 +188,15 @@ export interface SRSCourseGrades {
   title: string;
   categories: SRSGradeCategory[];
 }
+
+export interface SRSAttendanceItem {
+  title: string;
+  date: string;
+  attendance: string;
+}
+
+export interface SRSCourseAttendance {
+  title: string;
+  data: SRSAttendanceItem[];
+  ratio: string;
+}
