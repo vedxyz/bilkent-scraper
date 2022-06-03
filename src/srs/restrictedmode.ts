@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { JSDOM } from "jsdom";
 import fetch from "node-fetch";
 

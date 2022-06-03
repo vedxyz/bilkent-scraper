@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { get2FACode, initializeLogin, verifyEmail } from "./auth";
 import { calculateGPA } from "./cgpacalculator";
 import { getExams } from "./exam";

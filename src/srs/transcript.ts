@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { JSDOM } from "jsdom";
 import { SemesterType } from "../offerings";
 import { requestSRS } from "./auth";

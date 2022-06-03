@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { JSDOM } from "jsdom";
 import { requestSRS } from "./auth";
 import { SRSDailySchedule, SRSDailyScheduleItem, SRSTimeSlot, SRSWeeklySchedule } from "./interface";

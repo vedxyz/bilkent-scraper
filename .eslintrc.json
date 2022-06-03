@@ -33,6 +33,7 @@
          "no-shadow": "off",
          "no-use-before-define": "off",
          "@typescript-eslint/no-shadow": ["error"],
+         "import/prefer-default-export": "off",
          "import/no-extraneous-dependencies": ["error", {"devDependencies": ["src/test.ts"]}]
     }
 }

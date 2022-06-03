@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 
 import { requestImageSRS } from "./auth";
 import { SRSCourse, SRSSemester } from "./interface";

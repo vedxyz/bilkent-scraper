@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { JSDOM } from "jsdom";
 import { requestSRS } from "./auth";
 import { SRSCourse, SRSCourseAttendance, SRSSemester } from "./interface";

@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { JSDOM } from "jsdom";
 import { requestImageSRS, requestSRS } from "./auth";
 import { SRSInfoCard } from "./interface";
