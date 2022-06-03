@@ -1,0 +1,47 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.14.1"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run TypeDoc
+        run: npm run build:documentation
+
+      - name: Commit Files
+        working-directory: docs
+        run: |
+          COMMIT_ID="$(git rev-parse --short HEAD)"
+          git init
+          git add .
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "CI: Deploy TypeDoc" -m "Generated for $COMMIT_ID"
+
+      - name: Push to 'gh-pages' Branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: docs
+          force: true
+          branch: refs/heads/gh-pages
