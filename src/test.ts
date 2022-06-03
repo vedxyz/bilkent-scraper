@@ -3,7 +3,7 @@ import fs from "fs";
 import promptSync from "prompt-sync";
 import { Department, saveOfferingsToJSON, SemesterType } from "./offerings";
 import { getMealList } from "./cafeteria";
-import { get2FACode, SRSSession, SRSSessionBuilder } from "./srs";
+import { get2FACode, SRSSession } from "./srs";
 
 const args = process.argv.slice(2);
 const testDir = path.join(__dirname, "..", "testoutput");
@@ -49,7 +49,7 @@ const testRandomSRSFunction = async (session: SRSSession) => {
 const testSessionBuilderManual = async () => {
   const [id, password] = getCredentialsFromArgs("id", "password");
 
-  const { reference, verify } = await SRSSessionBuilder.withManualVerification(id, password);
+  const { reference, verify } = await SRSSession.withManualVerification(id, password);
   const verificationCode = prompt(`Verification Code (${reference}): `);
   const session = await verify(verificationCode);
   console.log(session.cookie);
@@ -61,7 +61,7 @@ const testSessionBuilderAutomated = async () => {
   const [id, password] = getCredentialsFromArgs("id", "password");
   const [email, emailPassword] = getCredentialsFromArgs("email", "emailpw");
 
-  const session = await SRSSessionBuilder.withAutomatedVerification(id, password, email, emailPassword);
+  const session = await SRSSession.withAutomatedVerification(id, password, email, emailPassword);
   console.log(session.cookie);
 
   await testRandomSRSFunction(session);
