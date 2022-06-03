@@ -200,3 +200,32 @@ export interface SRSCourseAttendance {
   data: SRSAttendanceItem[];
   ratio: string;
 }
+
+export interface SRSTranscriptSemester {
+  semester: SRSSemester;
+  gpa: string;
+  cgpa: string;
+  standing: string;
+  courses: {
+    course: Omit<SRSCourse, "section">;
+    name: string;
+    grade: SRSLetterGrade | "N/A";
+    credits: string;
+  }[];
+}
+export type SRSTranscript = SRSTranscriptSemester[];
+
+export interface SRSCurriculumCourseItem {
+  course: Omit<SRSCourse, "section"> | "N/A";
+  name: string;
+  status: "Succesful" | "Not taken" | "Failed";
+  grade: SRSLetterGrade | "N/A";
+  credits: string | "N/A";
+  semester: SRSSemester | null;
+  replacement?: {
+    course: Omit<SRSCourse, "section">;
+    name: string;
+  };
+}
+export type SRSCurriculumSemester = SRSCurriculumCourseItem[];
+export type SRSCurriculum = SRSCurriculumSemester[];
