@@ -22,6 +22,14 @@ const parseAcademicCalendar = (dom: JSDOM): AcademicCalendar =>
     type: getEventType(row.children[1]),
   }));
 
+/**
+ * Provides the contents of https://w3.bilkent.edu.tr/bilkent/academic-calendar/
+ *
+ * All rows are parsed into a single array with no distinction of semester.
+ * Event types (see {@link AcademicCalendarItem}) are parsed.
+ *
+ * @returns Array of academic calendar items
+ */
 export const getAcademicCalendar = async (): Promise<AcademicCalendar> => {
   const response = await fetch("https://w3.bilkent.edu.tr/bilkent/academic-calendar/");
   return parseAcademicCalendar(new JSDOM(await response.text()));

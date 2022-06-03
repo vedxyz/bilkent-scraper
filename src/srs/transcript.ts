@@ -36,6 +36,14 @@ const parseTranscript = (dom: JSDOM): SRSTranscript =>
     };
   });
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/transcript.php
+ *
+ * The credit and point sums are omitted.
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed transcript object
+ */
 export const getTranscript = async (cookie: string): Promise<SRSTranscript> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/transcript.php", cookie);
   return parseTranscript(new JSDOM(content));

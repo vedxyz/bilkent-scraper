@@ -13,6 +13,20 @@ const parseAttendance = (dom: JSDOM): SRSCourseAttendance[] =>
     ratio: div.querySelector("div > table + div")?.textContent?.trim().substring("Attendance Ratio: ".length) ?? "N/A",
   }));
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php?semester={year}{season}&course={department}%20{number}-{section}
+ *
+ * This endpoint returns all data for the current semester if all parameters are omitted.
+ * Semester given alone returns all data points for that semester.
+ * A course can be added to filter a semester.
+ *
+ * **Do NOT call this function with no semester if you provide a course**
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @param semester The semester to query (defaults to current semester)
+ * @param course A course to filter output for (defaults to all courses)
+ * @returns The parsed attendance object
+ */
 export const getAttendance = async (
   cookie: string,
   semester?: SRSSemester,

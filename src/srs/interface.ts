@@ -2,23 +2,50 @@ import { Dayjs } from "dayjs";
 import { SemesterType } from "../offerings";
 
 export interface SRS2FACode {
+  /**
+   * Verification code
+   */
   code: string;
+  /**
+   * Reference code
+   */
   ref: string;
 }
 
 export interface SRSLoginRequest {
+  /**
+   * The initial session cookie, to be used to finalize authentication
+   */
   cookie: string;
+  /**
+   * Reference code for the verification code
+   */
   reference: string;
 }
 
 export interface SRSCourse {
+  /**
+   * The department segment of the course: **CS** 101-1
+   */
   department: string;
+  /**
+   * The number segment of the course: CS **101**-1
+   */
   number: string;
+  /**
+   * The section segment of the course: CS 101-**1**
+   */
   section: string;
 }
 
 export interface SRSSemester {
+  /**
+   * The year segment of the semester: **2020**-2021 Fall
+   */
   year: string;
+  /**
+   * The season segment of the semester: 2020-2021 **Fall**
+   */
   season: SemesterType;
 }
 
@@ -172,6 +199,9 @@ export interface AcademicCalendarItem {
 }
 export type AcademicCalendar = AcademicCalendarItem[];
 
+/**
+ * Represents a row on the grade table for a course.
+ */
 export interface SRSGradeItem {
   title: string;
   date: string;
@@ -179,28 +209,46 @@ export interface SRSGradeItem {
   comment: string;
 }
 
+/**
+ * Represents a category of grades for a course.
+ */
 export interface SRSGradeCategory {
   type: string;
   items: SRSGradeItem[];
 }
 
+/**
+ * Represents the full grade data for a course.
+ */
 export interface SRSCourseGrades {
   title: string;
   categories: SRSGradeCategory[];
 }
 
+/**
+ * Represents a row on the attendance table for a course.
+ */
 export interface SRSAttendanceItem {
   title: string;
   date: string;
   attendance: string;
 }
 
+/**
+ * Represents the full attendance data for a course.
+ */
 export interface SRSCourseAttendance {
   title: string;
   data: SRSAttendanceItem[];
+  /**
+   * The attendance ratio
+   */
   ratio: string;
 }
 
+/**
+ * Represents a single semester on the transcript.
+ */
 export interface SRSTranscriptSemester {
   semester: SRSSemester;
   gpa: string;
@@ -215,6 +263,9 @@ export interface SRSTranscriptSemester {
 }
 export type SRSTranscript = SRSTranscriptSemester[];
 
+/**
+ * Represents a single row on the curriculum.
+ */
 export interface SRSCurriculumCourseItem {
   course: Omit<SRSCourse, "section"> | "N/A";
   name: string;
@@ -227,11 +278,23 @@ export interface SRSCurriculumCourseItem {
     name: string;
   };
 }
+/**
+ * Represents a full semester on the curriculum.
+ */
 export type SRSCurriculumSemester = SRSCurriculumCourseItem[];
+/**
+ * Represents the full curriculum
+ */
 export type SRSCurriculum = SRSCurriculumSemester[];
 
+/**
+ * Represents a row on the data of a letter grade announcement.
+ */
 export interface SRSLetterGradeResult {
   course: string;
   grade: SRSLetterGrade;
 }
+/**
+ * Represents a complete letter grade announcement.
+ */
 export type SRSLetterGradeResults = SRSLetterGradeResult[];

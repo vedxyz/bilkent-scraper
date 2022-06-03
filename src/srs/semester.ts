@@ -43,11 +43,27 @@ const parseSemester = (dom: JSDOM): SRSSemesterCourses => {
   return { semester, courses };
 };
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/courses.php
+ *
+ * The difference compared to {@link getSemester} is that this endpoint returns the current semester.
+ * All else is identical.
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed semester object
+ */
 export const getCurrentSemester = async (cookie: string): Promise<SRSSemesterCourses> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/courses.php", cookie);
   return parseSemester(new JSDOM(content));
 };
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester={year}{season}
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @param semester The semester to retrieve information for
+ * @returns The parsed semester object
+ */
 export const getSemester = async (cookie: string, semester: SRSSemester): Promise<SRSSemesterCourses> => {
   const content = await requestSRS(
     `https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=${semester.year}${semester.season}`,

@@ -60,6 +60,14 @@ const parseInfoCard = (dom: JSDOM): SRSInfoCard => {
   };
 };
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/infoCard.php
+ *
+ * Some arguably less important categories are omitted.
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed information card object
+ */
 export const getInfoCard = async (cookie: string): Promise<SRSInfoCard> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/infoCard.php", cookie);
   const dom = new JSDOM(content);

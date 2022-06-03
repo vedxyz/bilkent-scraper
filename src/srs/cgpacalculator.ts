@@ -1,4 +1,3 @@
-
 import { JSDOM } from "jsdom";
 import fetch from "node-fetch";
 import { CGPACalculation, CGPACalculationRequestData } from "./interface";
@@ -27,6 +26,13 @@ const parseCalculation = (dom: JSDOM): CGPACalculation => {
   };
 };
 
+/**
+ * Provides the functionality of https://stars.bilkent.edu.tr/srs-v2/tools/cgpa-calculator
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @param courses The list of courses and grades for which to calculate
+ * @returns The parsed calculation object
+ */
 export const calculateGPA = async (cookie: string, courses: CGPACalculationRequestData): Promise<CGPACalculation> => {
   const response = await fetch("https://stars.bilkent.edu.tr/srs-v2/tools/cgpa-calculator", {
     method: "POST",

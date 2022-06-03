@@ -23,6 +23,14 @@ const parseWeeklySchedule = (dom: JSDOM): SRSWeeklySchedule => {
   return weeklySchedule;
 };
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly
+ *
+ * The full matrix of time slots is parsed, meaning evening-hours and weekends are included.
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed weekly schedule object
+ */
 export const getWeeklySchedule = async (cookie: string): Promise<SRSWeeklySchedule> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly", cookie);
   return parseWeeklySchedule(new JSDOM(content));

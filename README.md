@@ -1,49 +1,101 @@
 # Bilkent Scraper
 
-Makeshift API for Bilkent University.
+Makeshift API for Bilkent University services, achieved through lots of scraping.
 
-## SRS AJAX Endpoints
+This package is for use with **Node.js only**. Browser use is not supported.
 
-This is of course not an exhaustive list, but a helpful one.
+See full API documentation on [GitHub Pages](https://vedattt.github.io/bilkent-scraper).
 
-- `https://stars.bilkent.edu.tr/srs/ajax/home.php` (courses endpoint could replace this)
-- `https://stars.bilkent.edu.tr/srs/ajax/userInfo.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/curriculum.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/courses.php` (same as below, but for current semester)
-- `https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=20211`
-- `https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/stats/letter-grade-bar.php?params=20212_CS_202`
-- `https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php` (current semester)
-- `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php` (current semester)
-- `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php?first=y&course=CS 223-5&semester=20211` (`course` can be omitted)
-- `https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php?first=y&course=CS 223-5&semester=20211` (same principles as `grade.php`)
-- `https://stars.bilkent.edu.tr/srs/ajax/transcript.php`
-- `https://stars.bilkent.edu.tr/srs/ajax/takenCourses.php`
-- `https://stars.bilkent.edu.tr/srs-v2/tools/cgpa-calculator`
-- `https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly`
+## Features
 
-The CGPA calculator works through POST requests where the request payload is a form with entries such as `courses[CRS_CODE_SEC]: "B+"`.
-Example payload:
+- Cafeteria
+  - Parse the weekly cafeteria menu
+  - Check for updates to the menu
+  - Built-in cache functionality through entity tags
+- Offerings
+  - Query offerings for a given set of parameters
+  - Save offerings to a JSON file
+- Bilkent SRS
+  - Parse the following endpoints:
+    Academic Calendar,
+    Attendance,
+    Authentication,
+    CGPA Calculator,
+    Curriculum,
+    Exam Schedule,
+    Grades,
+    Information Card,
+    Letter Grade Statistics,
+    Restricted Mode support,
+    Weekly Schedule,
+    Semester Course Details,
+    Transcript
+  - An authenticated SRS session class for ease of use
+  - Factory methods with manual or automated verification to build sessions
 
-```html
-courses%5BCS_202_1%5D=C&courses%5BCS_224_1%5D=A&courses%5BCS_319_1%5D=B%2B&courses%5BENG_401_18%5D=A&courses%5BMATH_225_4%5D=A&courses%5BPHYS_102_9%5D=A
+## Basic Usage
+
+### Offerings
+
+(To be written)
+
+### Cafeteria
+
+(To be written)
+
+### Bilkent SRS
+
+The recommended way to interact with the SRS API is through the `SRSSession` class.
+This class encapsulates all API functions into a single authenticated instance.
+Use one of the factory methods below to obtain a session instance.
+
+#### Manual Verification
+
+This is the typical login flow seen on the SRS website.
+
+```ts
+// Initialize the login process
+const { reference, verify } = await SRSSession.withManualVerification(id, password);
+
+// Perform verification
+const verificationCode = /* Obtained in whatever way */;
+const session = await verify(verificationCode);
+
+// The `SRSSession` instance is ready for use.
 ```
 
-## Implemented SRS Endpoints
+#### Automated Verification
 
-Some endpoints from above have been skipped to avoid redundancy.
+This is the more practical way to log into SRS **on a secure device**.
+There are security implications to this workflow as the process is no longer "two factor".
 
-- [x] Exam Schedule (`https://stars.bilkent.edu.tr/srs/ajax/exam/index.php`)
-- [x] Weekly Schedule (`https://stars.bilkent.edu.tr/srs-v2/schedule/index/weekly`)
-- [x] Letter Grade Statistics (`https://stars.bilkent.edu.tr/srs/ajax/stats/letter-grade-bar.php?params=20212_CS_202`)
-- [x] Information Card (`https://stars.bilkent.edu.tr/srs/ajax/infoCard.php`)
-- [x] Current Semester Grades (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php`)
-- [x] Current Semester Attendances (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php`)
-- [x] Specific Grades (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/grade.php?course=CS 223-5&semester=20211`)
-- [x] Specific Attendances (`https://stars.bilkent.edu.tr/srs/ajax/gradeAndAttend/attend.php?course=CS 223-5&semester=20211`)
-- [x] Transcript (`https://stars.bilkent.edu.tr/srs/ajax/transcript.php`)
-- [x] Curriculum (`https://stars.bilkent.edu.tr/srs/ajax/curriculum.php`)
-- [x] Current Semester Courses (`https://stars.bilkent.edu.tr/srs/ajax/courses.php`)
-- [x] Specific Semester Courses (`https://stars.bilkent.edu.tr/srs/ajax/semester.info.php?semester=20211`)
-- [x] CGPA Calculation (`https://stars.bilkent.edu.tr/srs-v2/tools/cgpa-calculator`)
+The verification code are scraped automatically from your university email address to which codes are sent.
+This requires some prior configuration on the user's part:
+
+- The user must be receiving SRS verification codes through mail rather than SMS.
+- The user must set up a mail filter through the webmail interface to direct all mails from `starsmsg@bilkent.edu.tr` containing the subject segment `Secure Login Gateway` to a specific mailbox/folder (i.e., called *STARS Auth*).
+
+```ts
+// A fifth parameter may be used to specify the filtered mailbox name. The default is "STARS Auth".
+const session = await SRSSession.withAutomatedVerification(id, password, email, emailPassword);
+
+// The `SRSSession` instance is ready for use.
+```
+
+## Disclaimer
+
+This is not an official project backed by the Bilkent University.
+It harmlessly scrapes the endpoints made available by them to any user.
+Do not misuse this package.
+
+I do **not** (cannot) guarantee that the package will work as intended.
+Changes to the endpoints made by the university **may break functionality at any time**.
+
+## Relevant Projects
+
+The projects listed below are using this package:
+
+- [VedBot (Discord bot)](https://github.com/vedattt/discord-vedbot)
+- [Bilkent STARS Browser Extension](https://github.com/vedattt/bilkent-stars-extension)
+- Bilkent SRS Mobile Application **(soon)**
+- Bilkent Scheduler **(future)**

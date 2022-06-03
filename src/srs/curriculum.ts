@@ -53,6 +53,14 @@ const parseCurriculum = (dom: JSDOM): SRSCurriculum =>
       })
   );
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/curriculum.php
+ *
+ * The two information tables at the bottom are omitted.
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed curriculum object
+ */
 export const getCurriculum = async (cookie: string): Promise<SRSCurriculum> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/curriculum.php", cookie);
   return parseCurriculum(new JSDOM(content));

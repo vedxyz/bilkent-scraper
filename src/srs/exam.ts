@@ -23,6 +23,12 @@ const parseExams = (dom: JSDOM): SRSExam[] =>
     };
   });
 
+/**
+ * Provides the contents of https://stars.bilkent.edu.tr/srs/ajax/exam/index.php
+ *
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The parsed exam schedule object
+ */
 export const getExams = async (cookie: string): Promise<SRSExam[]> => {
   const content = await requestSRS("https://stars.bilkent.edu.tr/srs/ajax/exam/index.php", cookie);
   return parseExams(new JSDOM(content));

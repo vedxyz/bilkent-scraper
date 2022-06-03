@@ -90,6 +90,17 @@ export const get2FACode = async (email: string, password: string, boxname = "STA
 
 const verifyEmailURL = "https://stars.bilkent.edu.tr/accounts/auth/verifyEmail";
 
+/**
+ * Initializes a login request for Bilkent SRS.
+ *
+ * The reference code is to be used to identify the corresponding verification code.
+ *
+ * The returned initial cookie must be fed into the next stage of the authentication process ({@link verifyEmail}).
+ *
+ * @param id Bilkent student ID
+ * @param password Bilkent SRS password
+ * @returns An object holding a reference code and the initial session cookie
+ */
 export const initializeLogin = async (id: string, password: string): Promise<SRSLoginRequest> => {
   const oauthMainResponse = await fetch("https://stars.bilkent.edu.tr/srs/oauth-login.php", {
     redirect: "manual",
@@ -132,12 +143,20 @@ export const initializeLogin = async (id: string, password: string): Promise<SRS
   return { cookie, reference };
 };
 
-export const verifyEmail = async (initCookie: string, code: string): Promise<string> => {
+/**
+ * Completes a login request for Bilkent SRS by verifying the two factor authentication code.
+ *
+ * @see {@link initializeLogin}
+ * @param initialCookie The session cookie returned by {@link initializeLogin}
+ * @param code The verification code
+ * @returns An authenticated SRS session cookie
+ */
+export const verifyEmail = async (initialCookie: string, code: string): Promise<string> => {
   const codeResponse = await fetch(verifyEmailURL, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Cookie: initCookie,
+      Cookie: initialCookie,
     },
     body: `EmailVerifyForm[verifyCode]=${code}&yt0=`,
     redirect: "manual",
@@ -173,6 +192,15 @@ export const verifyEmail = async (initCookie: string, code: string): Promise<str
   return newCookie;
 };
 
+/**
+ * Fetches and returns the text content from an SRS endpoint requiring authentication.
+ *
+ * An error is thrown if the cookie is invalid.
+ *
+ * @param url The URL to fetch
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The text content of the response
+ */
 export const requestSRS = async (url: string, cookie: string): Promise<string> => {
   const response = await fetch(url, {
     headers: {
@@ -186,6 +214,15 @@ export const requestSRS = async (url: string, cookie: string): Promise<string> =
   return content;
 };
 
+/**
+ * Fetches and returns the base64 encoded format of an image from an SRS endpoint requiring authentication.
+ *
+ * An error is thrown if the cookie is invalid.
+ *
+ * @param url The URL to fetch
+ * @param cookie A valid Bilkent SRS session cookie (`PHPSESSID=...`)
+ * @returns The image, as an encoded base64 string
+ */
 export const requestImageSRS = async (url: string, cookie: string): Promise<string> => {
   const response = await fetch(url, {
     headers: {
