@@ -1,8 +1,12 @@
+# Files
 dist/test.*
-src
-testoutput
 .editorconfig
 .eslintrc.json
 .prettierrc.json
 tsconfig.json
+
+# Directories
+src
+testoutput
 ajax_samples
+docs
