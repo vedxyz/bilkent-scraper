@@ -8,5 +8,5 @@ tsconfig.json
 # Directories
 src
 testoutput
-ajax_samples
+samples
 docs
