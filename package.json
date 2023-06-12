@@ -4,7 +4,7 @@
   "description": "Providing a makeshift Bilkent University API by scraping university services",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/vedattt/bilkent-scraper",
+  "repository": "https://github.com/vedxyz/bilkent-scraper",
   "scripts": {
     "build": "rimraf ./dist && npx tsc",
     "build:documentation": "npx typedoc src/index.ts",

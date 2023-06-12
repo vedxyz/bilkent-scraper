@@ -4,7 +4,7 @@ Makeshift API for Bilkent University services, achieved through lots of scraping
 
 This package is for use with **Node.js only**. Browser use is not supported.
 
-See full API documentation on [GitHub Pages](https://vedattt.github.io/bilkent-scraper).
+See full API documentation on [GitHub Pages](https://vedxyz.github.io/bilkent-scraper).
 
 ## Features
 
@@ -95,7 +95,7 @@ Changes to the endpoints made by the university **may break functionality at any
 
 The projects listed below are using this package:
 
-- [VedBot (Discord bot)](https://github.com/vedattt/discord-vedbot)
-- [Bilkent STARS Browser Extension](https://github.com/vedattt/bilkent-stars-extension)
+- [VedBot (Discord bot)](https://github.com/vedxyz/discord-vedbot)
+- [Bilkent STARS Browser Extension](https://github.com/vedxyz/bilkent-stars-extension)
 - Bilkent SRS Mobile Application **(soon)**
 - Bilkent Scheduler **(future)**
