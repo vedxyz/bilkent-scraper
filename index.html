@@ -1,0 +1,106 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>bilkent-scraper</title><meta name="description" content="Documentation for bilkent-scraper"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">bilkent-scraper</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>bilkent-scraper </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#bilkent-scraper" id="bilkent-scraper" style="color: inherit; text-decoration: none;">
+  <h1>Bilkent Scraper</h1>
+</a>
+<p>Makeshift API for Bilkent University services, achieved through lots of scraping.</p>
+<p>This package is for use with <strong>Node.js only</strong>. Browser use is not supported.</p>
+<p>See full API documentation on <a href="https://vedxyz.github.io/bilkent-scraper">GitHub Pages</a>.</p>
+
+<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+  <h2>Features</h2>
+</a>
+<ul>
+<li>Cafeteria<ul>
+<li>Parse the weekly cafeteria menu</li>
+<li>Check for updates to the menu</li>
+<li>Built-in cache functionality through entity tags</li>
+</ul>
+</li>
+<li>Offerings<ul>
+<li>Query offerings for a given set of parameters</li>
+<li>Save offerings to a JSON file</li>
+</ul>
+</li>
+<li>Bilkent SRS<ul>
+<li>Parse the following endpoints:
+Academic Calendar,
+Attendance,
+Authentication,
+CGPA Calculator,
+Curriculum,
+Exam Schedule,
+Grades,
+Information Card,
+Letter Grade Statistics,
+Restricted Mode support,
+Weekly Schedule,
+Semester Course Details,
+Transcript</li>
+<li>An authenticated SRS session class for ease of use</li>
+<li>Factory methods with manual or automated verification to build sessions</li>
+</ul>
+</li>
+</ul>
+
+<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+  <h2>Basic Usage</h2>
+</a>
+
+<a href="#offerings" id="offerings" style="color: inherit; text-decoration: none;">
+  <h3>Offerings</h3>
+</a>
+<p>(To be written)</p>
+
+<a href="#cafeteria" id="cafeteria" style="color: inherit; text-decoration: none;">
+  <h3>Cafeteria</h3>
+</a>
+<p>(To be written)</p>
+
+<a href="#bilkent-srs" id="bilkent-srs" style="color: inherit; text-decoration: none;">
+  <h3>Bilkent SRS</h3>
+</a>
+<p>The recommended way to interact with the SRS API is through the <code>SRSSession</code> class.
+This class encapsulates all API functions into a single authenticated instance.
+Use one of the factory methods below to obtain a session instance.</p>
+
+<a href="#manual-verification" id="manual-verification" style="color: inherit; text-decoration: none;">
+  <h4>Manual Verification</h4>
+</a>
+<p>This is the typical login flow seen on the SRS website.</p>
+<pre><code class="language-ts"><span class="hl-0">// Initialize the login process</span><br/><span class="hl-1">const</span><span class="hl-2"> { </span><span class="hl-3">reference</span><span class="hl-2">, </span><span class="hl-3">verify</span><span class="hl-2"> } = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-5">SRSSession</span><span class="hl-2">.</span><span class="hl-6">withManualVerification</span><span class="hl-2">(</span><span class="hl-5">id</span><span class="hl-2">, </span><span class="hl-5">password</span><span class="hl-2">);</span><br/><br/><span class="hl-0">// Perform verification</span><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">verificationCode</span><span class="hl-2"> = </span><span class="hl-0">/* Obtained in whatever way */</span><span class="hl-2">;</span><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">session</span><span class="hl-2"> = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-6">verify</span><span class="hl-2">(</span><span class="hl-5">verificationCode</span><span class="hl-2">);</span><br/><br/><span class="hl-0">// The `SRSSession` instance is ready for use.</span>
+</code></pre>
+
+<a href="#automated-verification" id="automated-verification" style="color: inherit; text-decoration: none;">
+  <h4>Automated Verification</h4>
+</a>
+<p>This is the more practical way to log into SRS <strong>on a secure device</strong>.
+There are security implications to this workflow as the process is no longer &quot;two factor&quot;.</p>
+<p>The verification codes are scraped automatically from your university email address to which codes are sent.
+This requires some prior configuration on the user&#39;s part:</p>
+<ul>
+<li>The user must be receiving SRS verification codes through mail rather than SMS.</li>
+<li>The user must set up a mail filter through the webmail interface to direct all mails from <code>starsmsg@bilkent.edu.tr</code> containing the subject segment <code>Secure Login Gateway</code> to a specific mailbox/folder (i.e., called <em>STARS Auth</em>).</li>
+</ul>
+<pre><code class="language-ts"><span class="hl-0">// A fifth parameter may be used to specify the filtered mailbox name. The default is &quot;STARS Auth&quot;.</span><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">session</span><span class="hl-2"> = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-5">SRSSession</span><span class="hl-2">.</span><span class="hl-6">withAutomatedVerification</span><span class="hl-2">(</span><span class="hl-5">id</span><span class="hl-2">, </span><span class="hl-5">password</span><span class="hl-2">, </span><span class="hl-5">email</span><span class="hl-2">, </span><span class="hl-5">emailPassword</span><span class="hl-2">);</span><br/><br/><span class="hl-0">// The `SRSSession` instance is ready for use.</span>
+</code></pre>
+
+<a href="#disclaimer" id="disclaimer" style="color: inherit; text-decoration: none;">
+  <h2>Disclaimer</h2>
+</a>
+<p>This is not an official project backed by the Bilkent University.
+It harmlessly scrapes the endpoints made available by them to any user.
+Do not misuse this package.</p>
+<p>I do <strong>not</strong> (cannot) guarantee that the package will work as intended.
+Changes to the endpoints made by the university <strong>may break functionality at any time</strong>.</p>
+
+<a href="#relevant-projects" id="relevant-projects" style="color: inherit; text-decoration: none;">
+  <h2>Relevant Projects</h2>
+</a>
+<p>The projects listed below are using this package:</p>
+<ul>
+<li><a href="https://github.com/vedxyz/discord-vedbot">VedBot (Discord bot)</a></li>
+<li><a href="https://github.com/vedxyz/bilkent-stars-extension">Bilkent STARS Browser Extension</a></li>
+<li>Bilkent SRS Mobile Application <strong>(soon)</strong></li>
+<li>Bilkent Scheduler <strong>(future)</strong></li>
+</ul>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/Department.html" class="tsd-kind-icon">Department</a></li><li class="tsd-kind-enum"><a href="enums/SRSLetterGrade.html" class="tsd-kind-icon">SRSLetter<wbr/>Grade</a></li><li class="tsd-kind-enum"><a href="enums/SRSTimeSlot.html" class="tsd-kind-icon">SRSTime<wbr/>Slot</a></li><li class="tsd-kind-enum"><a href="enums/SemesterType.html" class="tsd-kind-icon">Semester<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/SRSSession.html" class="tsd-kind-icon">SRSSession</a></li><li class="tsd-kind-interface"><a href="interfaces/AcademicCalendarItem.html" class="tsd-kind-icon">Academic<wbr/>Calendar<wbr/>Item</a></li><li class="tsd-kind-interface"><a href="interfaces/CGPACalculation.html" class="tsd-kind-icon">CGPACalculation</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseOffering.html" class="tsd-kind-icon">Course<wbr/>Offering</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseOfferingScheduleData.html" class="tsd-kind-icon">Course<wbr/>Offering<wbr/>Schedule<wbr/>Data</a></li><li class="tsd-kind-interface"><a href="interfaces/CourseOfferingSectionData.html" class="tsd-kind-icon">Course<wbr/>Offering<wbr/>Section<wbr/>Data</a></li><li class="tsd-kind-interface"><a href="interfaces/DepartmentOfferingsData.html" class="tsd-kind-icon">Department<wbr/>Offerings<wbr/>Data</a></li><li class="tsd-kind-interface"><a href="interfaces/Meal.html" class="tsd-kind-icon">Meal</a></li><li class="tsd-kind-interface"><a href="interfaces/MealDay.html" class="tsd-kind-icon">Meal<wbr/>Day</a></li><li class="tsd-kind-interface"><a href="interfaces/MealList.html" class="tsd-kind-icon">Meal<wbr/>List</a></li><li class="tsd-kind-interface"><a href="interfaces/MealName.html" class="tsd-kind-icon">Meal<wbr/>Name</a></li><li class="tsd-kind-interface"><a href="interfaces/OfferingsQuery.html" class="tsd-kind-icon">Offerings<wbr/>Query</a></li><li class="tsd-kind-interface"><a href="interfaces/SRS2FACode.html" class="tsd-kind-icon">SRS2FACode</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSAttendanceItem.html" class="tsd-kind-icon">SRSAttendance<wbr/>Item</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSCourse.html" class="tsd-kind-icon">SRSCourse</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSCourseAttendance.html" class="tsd-kind-icon">SRSCourse<wbr/>Attendance</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSCourseGrades.html" class="tsd-kind-icon">SRSCourse<wbr/>Grades</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSCurriculumCourseItem.html" class="tsd-kind-icon">SRSCurriculum<wbr/>Course<wbr/>Item</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/SRSDailyScheduleItem.html" class="tsd-kind-icon">SRSDaily<wbr/>Schedule<wbr/>Item</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSExam.html" class="tsd-kind-icon">SRSExam</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSGradeCategory.html" class="tsd-kind-icon">SRSGrade<wbr/>Category</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSGradeItem.html" class="tsd-kind-icon">SRSGrade<wbr/>Item</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSInfoCard.html" class="tsd-kind-icon">SRSInfo<wbr/>Card</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSLetterGradeResult.html" class="tsd-kind-icon">SRSLetter<wbr/>Grade<wbr/>Result</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSLoginRequest.html" class="tsd-kind-icon">SRSLogin<wbr/>Request</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSSemester.html" class="tsd-kind-icon">SRSSemester</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSSemesterCourses.html" class="tsd-kind-icon">SRSSemester<wbr/>Courses</a></li><li class="tsd-kind-interface"><a href="interfaces/SRSTranscriptSemester.html" class="tsd-kind-icon">SRSTranscript<wbr/>Semester</a></li><li class="tsd-kind-type-alias"><a href="modules.html#AcademicCalendar" class="tsd-kind-icon">Academic<wbr/>Calendar</a></li><li class="tsd-kind-type-alias"><a href="modules.html#CGPACalculationRequestData" class="tsd-kind-icon">CGPACalculation<wbr/>Request<wbr/>Data</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSCurriculum" class="tsd-kind-icon">SRSCurriculum</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSCurriculumSemester" class="tsd-kind-icon">SRSCurriculum<wbr/>Semester</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSDailySchedule" class="tsd-kind-icon">SRSDaily<wbr/>Schedule</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSLetterGradeResults" class="tsd-kind-icon">SRSLetter<wbr/>Grade<wbr/>Results</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSTranscript" class="tsd-kind-icon">SRSTranscript</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SRSWeeklySchedule" class="tsd-kind-icon">SRSWeekly<wbr/>Schedule</a></li><li class="tsd-kind-function"><a href="modules.html#calculateGPA" class="tsd-kind-icon">calculateGPA</a></li><li class="tsd-kind-function"><a href="modules.html#checkForUpdates" class="tsd-kind-icon">check<wbr/>For<wbr/>Updates</a></li><li class="tsd-kind-function"><a href="modules.html#exportOfferingsToJSON" class="tsd-kind-icon">export<wbr/>Offerings<wbr/>ToJSON</a></li><li class="tsd-kind-function"><a href="modules.html#get2FACode" class="tsd-kind-icon">get2FACode</a></li><li class="tsd-kind-function"><a href="modules.html#getAcademicCalendar" class="tsd-kind-icon">get<wbr/>Academic<wbr/>Calendar</a></li><li class="tsd-kind-function"><a href="modules.html#getAttendance" class="tsd-kind-icon">get<wbr/>Attendance</a></li><li class="tsd-kind-function"><a href="modules.html#getCurrentSemester" class="tsd-kind-icon">get<wbr/>Current<wbr/>Semester</a></li><li class="tsd-kind-function"><a href="modules.html#getCurriculum" class="tsd-kind-icon">get<wbr/>Curriculum</a></li><li class="tsd-kind-function"><a href="modules.html#getExams" class="tsd-kind-icon">get<wbr/>Exams</a></li><li class="tsd-kind-function"><a href="modules.html#getGrades" class="tsd-kind-icon">get<wbr/>Grades</a></li><li class="tsd-kind-function"><a href="modules.html#getInfoCard" class="tsd-kind-icon">get<wbr/>Info<wbr/>Card</a></li><li class="tsd-kind-function"><a href="modules.html#getLetterGradeStatistics" class="tsd-kind-icon">get<wbr/>Letter<wbr/>Grade<wbr/>Statistics</a></li><li class="tsd-kind-function"><a href="modules.html#getLetterGrades" class="tsd-kind-icon">get<wbr/>Letter<wbr/>Grades</a></li><li class="tsd-kind-function"><a href="modules.html#getMealList" class="tsd-kind-icon">get<wbr/>Meal<wbr/>List</a></li><li class="tsd-kind-function"><a href="modules.html#getOfferings" class="tsd-kind-icon">get<wbr/>Offerings</a></li><li class="tsd-kind-function"><a href="modules.html#getSemester" class="tsd-kind-icon">get<wbr/>Semester</a></li><li class="tsd-kind-function"><a href="modules.html#getTranscript" class="tsd-kind-icon">get<wbr/>Transcript</a></li><li class="tsd-kind-function"><a href="modules.html#getWeeklySchedule" class="tsd-kind-icon">get<wbr/>Weekly<wbr/>Schedule</a></li><li class="tsd-kind-function"><a href="modules.html#initializeLogin" class="tsd-kind-icon">initialize<wbr/>Login</a></li><li class="tsd-kind-function"><a href="modules.html#isSRSRestricted" class="tsd-kind-icon">isSRSRestricted</a></li><li class="tsd-kind-function"><a href="modules.html#requestImageSRS" class="tsd-kind-icon">request<wbr/>ImageSRS</a></li><li class="tsd-kind-function"><a href="modules.html#requestSRS" class="tsd-kind-icon">requestSRS</a></li><li class="tsd-kind-function"><a href="modules.html#saveOfferingsToJSON" class="tsd-kind-icon">save<wbr/>Offerings<wbr/>ToJSON</a></li><li class="tsd-kind-function"><a href="modules.html#verifyEmail" class="tsd-kind-icon">verify<wbr/>Email</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
